@@ -1,2 +1,5 @@
 ---
-# defaults file for shieldwed.docker
+state: present
+
+service_enabled: yes
+service_state: started

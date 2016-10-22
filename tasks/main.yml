@@ -1,2 +1,8 @@
 ---
-# tasks file for shieldwed.docker
+- name: ensure state {{ state }} for docker
+  package: name={{ package_name }} state={{ state }}
+  become: true
+
+- name: ensure service enabling
+  service: name={{ service_name }} state={{ service_state }} enabled={{ service_enabled }}
+  become: true

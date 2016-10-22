@@ -1,2 +1,4 @@
 ---
-# vars file for shieldwed.docker
+package_name: docker.io
+
+service_name: docker
