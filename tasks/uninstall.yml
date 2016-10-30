@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: include substates for installing
-  include: install.yml
-  when: docker_state == "present"
+- name: ensure service stopped and disabled
+  service: name={{ service_name }} state=stopped enabled=false
+  become: true
 
-- name: include substates for uninstalling
-  include: uninstall.yml
-  when: docker_state == "absent"
+- name: uninstall docker
+  package: name={{ package_name }} state=absent
+  become: true

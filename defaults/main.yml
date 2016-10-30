@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-state: present
+docker_state: present
 
 service_enabled: yes
 service_state: started
