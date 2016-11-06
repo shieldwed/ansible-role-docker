@@ -1,6 +1,7 @@
 # shieldwed.docker
 
-Ansible role to install, configure and manager docker service.
+Ansible role to install, configure and manager docker service. This includes
+docker-compose >= 0.16.0 for version 2 manifests.
 
 Requirements
 ------------

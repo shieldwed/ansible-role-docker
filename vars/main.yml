@@ -12,6 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-package_name: docker.io
+
+docker_package: docker.io
+
+compose_packages_dist:
+  - python-pip
+  - python-yaml
+  - python-cached-property
+  - python-docopt
+  - python-functools32
+  - python-texttable
+  - python-jsonschema
+  - python-backports.ssl-match-hostname
+  - python-enum34
+  - python-ipaddress
+
+compose_package_pip: docker-compose
 
 service_name: docker

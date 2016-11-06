@@ -13,8 +13,18 @@
 # limitations under the License.
 ---
 - name: install docker
-  package: name={{ package_name }} state=present
+  package: name={{ docker_package }} state=present
   become: true
+
+- name: install docker-compose dist packages
+  package: name={{ compose_packages_dist }} state=present
+  become: true
+  when: docker_compose_state == "present"
+
+- name: install docker-compose pip packages
+  pip: name={{ compose_package_pip }} state=present
+  become: true
+  when: docker_compose_state == "present"
 
 - name: ensure service enabling
   service: name={{ service_name }} state={{ service_state }} enabled={{ service_enabled }}
