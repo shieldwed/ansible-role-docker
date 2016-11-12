@@ -12,10 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: include substates for installing
-  include: install.yml
-  when: docker_state == "present"
-
-- name: include substates for uninstalling
-  include: uninstall.yml
-  when: docker_state == "absent"
+- include: install.yml

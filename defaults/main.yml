@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-docker_state: present
 docker_compose_state: present
 
 service_enabled: yes
