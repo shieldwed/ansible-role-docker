@@ -15,4 +15,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - shieldwed.docker
+    - ansible-role-docker
