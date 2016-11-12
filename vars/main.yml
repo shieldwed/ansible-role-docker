@@ -15,7 +15,7 @@
 
 docker_package: docker.io
 
-compose_packages_dist:
+docker_compose_packages_dist:
   - python-pip
   - python-yaml
   - python-cached-property
@@ -27,6 +27,6 @@ compose_packages_dist:
   - python-enum34
   - python-ipaddress
 
-compose_package_pip: docker-compose
+docker_compose_package_pip: docker-compose
 
-service_name: docker
+docker_service_name: docker
