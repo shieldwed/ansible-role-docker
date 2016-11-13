@@ -25,7 +25,8 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-      - yakkety
+      - xenial
+      #- yakkety
 
   galaxy_tags:
     - docker

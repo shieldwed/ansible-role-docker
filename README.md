@@ -11,6 +11,13 @@ manager. This could be changed easily if the destined service manager allows to
 issue different commands for start up and tear down and the required files
 can be generated from the variables described below.
 
+Compatibility
+-------------
+
+This role is working at least on **Ubuntu Xenial (16.04) and Yakkety (16.10)**.
+In the ansible manifest only Xenial is listed since Yakkety is not recognized
+yet.
+
 Role Variables
 --------------
 
