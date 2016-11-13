@@ -15,12 +15,9 @@
 - name: install docker
   package: name={{ docker_package }} state=present
 
-- name: install docker-compose dist packages
-  package: name={{ docker_compose_packages_dist }} state=present
-  when: docker_compose_state == "present"
-
-- name: install docker-compose pip packages
-  pip: name={{ docker_compose_package_pip }} state=present
+- name: install docker-compose
+  get_url: dest={{ docker_compose_bin_path }} url={{ docker_compose_url }}
+    checksum={{ docker_compose_checksum }} owner=root group=root mode=0755
   when: docker_compose_state == "present"
 
 - name: ensure service enabling
