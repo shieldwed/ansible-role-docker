@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+systemd_unit_path: /etc/systemd/system
 
 docker_package: docker.io
+docker_service_name: docker
 
 docker_compose_packages_dist:
   - python-pip
@@ -26,7 +28,5 @@ docker_compose_packages_dist:
   - python-backports.ssl-match-hostname
   - python-enum34
   - python-ipaddress
-
 docker_compose_package_pip: docker-compose
-
-docker_service_name: docker
+docker_compose_bin_path: /usr/local/bin/docker-compose

@@ -13,3 +13,11 @@
 # limitations under the License.
 ---
 - include: install.yml
+
+- include: configure.yml
+  when: docker_compose_state == "present"
+
+- include: service.yml
+  with_items: "{{ docker_compose_services }}"
+  loop_control:
+    loop_var: docker_compose_service

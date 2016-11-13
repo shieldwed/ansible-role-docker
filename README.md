@@ -6,35 +6,39 @@ This includes docker-compose >= 0.16.0 for version 2 manifests.
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+shieldwed.docker is currently only usable on systems with systemd service
+manager. This could be changed easily if the destined service manager allows to
+issue different commands for start up and tear down and the required files
+can be generated from the variables described below.
 
 Role Variables
 --------------
 
 | variable | default | description |
 |----------|---------|-------------|
-| docker_state | present | Role variable to define the overall state of docker and its configuration. Allowed values: `present`, `absent` |
+| docker_compose_state | present | state of docker-compose in case docker only installation desired |
+| docker_service_enabled | yes | whether docker service should be enabled for startup |
+| docker_service_state | started | if docker service should be started (for docker only installations) |
+| docker_compose_service_directory | /etc/docker-services | directory for docker compose files |
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: all
+  roles:
+     - shieldwed.docker
+```
+Variables:
+```yaml
+docker_compose_services:
+  - name: service-name
+    description: service description for systemd
+    compose_file: path/to/docker-compose-file.yml
+    compose_file_startup: path/to/docker-compose-file/for/initial/startup.yml
+```
 
 License
 -------
 
 Apache 2.0 (see LICENSE file)
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

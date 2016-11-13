@@ -1,0 +1,41 @@
+# Copyright 2016 Daniel Wilhelm
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: create compose service directory
+  file: path={{ docker_compose_service_directory }}/{{ docker_compose_service.name }}
+    mode=0755 state=directory
+
+- name: place compose file for {{ docker_compose_service.name }} on server
+  copy: src={{ docker_compose_service.compose_file }}
+    dest={{ docker_compose_service_directory }}/{{ docker_compose_service.name }}/docker-compose.yml
+    validate='{{ docker_compose_bin_path }} -f %s config -q'
+  register: compose_file_copy_result
+
+- name: place systemd unit for {{ docker_compose_service.name }} on server
+  template: src=docker-service.service.j2
+    dest={{ systemd_unit_path }}/{{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}.service
+
+- name: enable {{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }} service
+  systemd: name={{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}
+    daemon_reload=yes enabled=yes
+
+- name: initial start of {{ docker_compose_service.name }} service
+  docker_service: project_name={{ docker_compose_service.name }} state=present
+    definition="{{ lookup('file', docker_compose_service.compose_file_startup) | from_yaml }}"
+  when: "{{ compose_file_copy_result|changed }}"
+
+- name: ensure {{ docker_compose_service.name }} service running
+  systemd: name={{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}
+    state=started
+  when: "{{ not compose_file_copy_result|changed }}"

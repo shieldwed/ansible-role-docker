@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+[Unit]
+Description={{ docker_compose_service.description }}
+Requires={{ docker_service_name }}.service
+After={{ docker_service_name }}.service
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always
+ExecStart={{ docker_compose_bin_path }} -p {{ docker_compose_service.name }} -f {{ docker_compose_service_directory }}/{{ docker_compose_service.name }}/docker-compose.yml up
+ExecStop={{ docker_compose_bin_path }} -p {{ docker_compose_service.name }} -f {{ docker_compose_service_directory }}/{{ docker_compose_service.name }}/docker-compose.yml down

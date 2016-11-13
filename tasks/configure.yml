@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-docker_compose_state: present
+- name: ensure docker service started (for composer)
+  service: name={{ docker_service_name }} state=started
 
-docker_service_enabled: yes
-docker_service_state: started
-
-docker_compose_service_directory: /etc/docker-services
+- name: create docker compose service directory
+  file: path={{ docker_compose_service_directory }} state=directory mode=0755
