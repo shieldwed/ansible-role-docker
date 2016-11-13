@@ -16,26 +16,20 @@
   file: path={{ docker_compose_service_directory }}/{{ docker_compose_service.name }}
     mode=0755 state=directory
 
-- name: place compose file for {{ docker_compose_service.name }} on server
-  copy: src={{ docker_compose_service.compose_file }}
+- name: place initial compose file for {{ docker_compose_service.name }} on server
+  copy: src={{ docker_compose_service.compose_file_startup|default(docker_compose_service.compose_file) }}
     dest={{ docker_compose_service_directory }}/{{ docker_compose_service.name }}/docker-compose.yml
-    validate='{{ docker_compose_bin_path }} -f %s config -q'
-  register: compose_file_copy_result
+    validate='{{ docker_compose_bin_path }} -f %s config -q' force=no
 
 - name: place systemd unit for {{ docker_compose_service.name }} on server
   template: src=docker-service.service.j2
     dest={{ systemd_unit_path }}/{{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}.service
 
-- name: enable {{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }} service
+- name: enable and start {{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }} service
   systemd: name={{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}
-    daemon_reload=yes enabled=yes
+    daemon_reload=yes enabled=yes state=started
 
-- name: initial start of {{ docker_compose_service.name }} service
-  docker_service: project_name={{ docker_compose_service.name }} state=present
-    definition="{{ lookup('file', docker_compose_service.compose_file_startup) | from_yaml }}"
-  when: "{{ compose_file_copy_result|changed }}"
-
-- name: ensure {{ docker_compose_service.name }} service running
-  systemd: name={{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}
-    state=started
-  when: "{{ not compose_file_copy_result|changed }}"
+- name: place permanent compose file for {{ docker_compose_service.name }} on server
+  copy: src={{ docker_compose_service.compose_file }}
+    dest={{ docker_compose_service_directory }}/{{ docker_compose_service.name }}/docker-compose.yml
+    validate='{{ docker_compose_bin_path }} -f %s config -q'
