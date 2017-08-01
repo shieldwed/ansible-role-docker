@@ -25,6 +25,10 @@
   template: src=docker-service.service.j2
     dest={{ systemd_unit_path }}/{{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}.service
 
+- name: include service specific config
+  include: "{{ docker_compose_service.service_config }}"
+  when: docker_compose_service.service_config is defined
+
 - name: enable and start {{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }} service
   systemd: name={{ docker_compose_service.systemd_service_name|default('docker-' + docker_compose_service.name) }}
     daemon_reload=yes enabled=yes state=started
