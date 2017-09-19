@@ -16,4 +16,4 @@
   service: name={{ docker_service_name }} state=started
 
 - name: create docker compose service directory
-  file: path={{ docker_compose_service_directory }} state=directory mode=0755
+  file: path={{ docker_service_directory }} state=directory mode=0755
