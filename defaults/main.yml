@@ -20,4 +20,4 @@ docker_compose_checksum: >
 docker_service_enabled: yes
 docker_service_state: started
 
-docker_compose_service_directory: /etc/docker-services
+docker_service_directory: /etc/docker-services
