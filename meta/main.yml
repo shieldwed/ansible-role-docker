@@ -26,7 +26,8 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-        #- yakkety
+        - yakkety
+        - zesty
 
   galaxy_tags:
     - docker
