@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- include: install.yml
+- import_tasks: install.yml
 
-- include: configure.yml
+- import_tasks: configure.yml
   when: docker_compose_state == "present"
 
-- include: service.yml
+- include_tasks: service.yml
   with_items: "{{ docker_services }}"
   loop_control:
     loop_var: docker_service
