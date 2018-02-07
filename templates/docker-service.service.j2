@@ -5,7 +5,7 @@ Requires={{ docker_service_name }}.service
 After={{ docker_service_name }}.service
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 
 [Service]
 Restart=always
