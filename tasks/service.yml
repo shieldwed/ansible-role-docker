@@ -17,7 +17,9 @@
     mode=0755 state=directory
 
 - name: place initial compose file for {{ docker_service.name }} on server
-  template: src={{ docker_service.compose_file_startup|default(docker_service.compose_file) }}
+  vars:
+    docker_compose_file_initial: true
+  template: src={{ docker_service.compose_file }}
     dest={{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml
     validate='{{ docker_compose_bin_path }} -f %s config -q' force=no
 
@@ -34,6 +36,8 @@
     daemon_reload=yes enabled=yes state=started
 
 - name: place permanent compose file for {{ docker_service.name }} on server
+  vars:
+    docker_compose_file_initial: false
   template: src={{ docker_service.compose_file }}
     dest={{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml
     validate='{{ docker_compose_bin_path }} -f %s config -q'
