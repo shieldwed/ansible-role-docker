@@ -28,6 +28,10 @@ galaxy_info:
         - xenial
         - yakkety
         - zesty
+        - artful
+        - bionic
+        - cosmic
+        - disco
 
   galaxy_tags:
     - docker

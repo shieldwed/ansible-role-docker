@@ -14,9 +14,9 @@ can be generated from the variables described below.
 Compatibility
 -------------
 
-This role is working at least on **Ubuntu Xenial (16.04) and Yakkety (16.10)**.
-In the ansible manifest only Xenial is listed since Yakkety is not recognized
-yet.
+This role has been working for all releases from `xenial` up to `disco` so far
+and has been used on each of them, although compatibilty is only really tested
+with the latest release.
 
 Role Variables
 --------------
@@ -42,8 +42,14 @@ docker_compose_services:
   - name: service-name
     description: service description for systemd
     compose_file: path/to/docker-compose-file.yml
-    compose_file_startup: path/to/docker-compose-file/for/initial/startup.yml
 ```
+
+The variable `compose_file_startup` doesn't exist anymore. Instead the variable
+`docker_compose_file_initial` has been added at task level and resolves to
+`true` for when the `compose_file` is rendered for the initial run and to
+`false` for all subsequent runs. This allows to maintain the docker-compose
+states to be kept in the same template without being required to maintain
+two differnt templates with mostly the same content.
 
 License
 -------
