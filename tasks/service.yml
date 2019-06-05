@@ -32,7 +32,7 @@
   when: docker_service.service_config is defined
 
 - name: enable and start {{ docker_service.systemd_service_name|default('docker-' + docker_service.name) }} service
-  systemd: name={{ docker_service.systemd_service_name|default('docker-' + docker_service.name) }}
+  systemd: name={{ docker_service.systemd_service_name|default('docker-' + docker_service.name) }}.service
     daemon_reload=yes enabled=yes state=started
 
 - name: place permanent compose file for {{ docker_service.name }} on server
