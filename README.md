@@ -15,7 +15,7 @@ Compatibility
 -------------
 
 This role has been working for all releases from `xenial` up to `disco` so far
-and has been used on each of them, although compatibilty is only really tested
+and has been used on each of them, although compatibility is only really tested
 with the latest release.
 
 Role Variables
@@ -49,7 +49,7 @@ The variable `compose_file_startup` doesn't exist anymore. Instead the variable
 `true` for when the `compose_file` is rendered for the initial run and to
 `false` for all subsequent runs. This allows to maintain the docker-compose
 states to be kept in the same template without being required to maintain
-two differnt templates with mostly the same content.
+two different templates with mostly the same content.
 
 License
 -------
