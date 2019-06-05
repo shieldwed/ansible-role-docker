@@ -42,6 +42,8 @@ docker_compose_services:
   - name: service-name
     description: service description for systemd
     compose_file: path/to/docker-compose-file.yml
+    service_config: path/to/ansible-playbook-file.yml
+    systemd_service_name: systemd-unit-name
 ```
 
 The variable `compose_file_startup` doesn't exist anymore. Instead the variable
@@ -50,6 +52,15 @@ The variable `compose_file_startup` doesn't exist anymore. Instead the variable
 `false` for all subsequent runs. This allows to maintain the docker-compose
 states to be kept in the same template without being required to maintain
 two different templates with mostly the same content.
+
+The variable `service_config` allows to include a play book containing
+steps to be run after the initial `compose_file` has been place on
+the destination system but before it is started for the first time.
+This is a good opportunity to copy further required files, install packages or
+change configuration files.
+
+`systemd_service_name` specifies the name the systemd unit is saved as.
+This defaults to `docker-${name}`.
 
 License
 -------
