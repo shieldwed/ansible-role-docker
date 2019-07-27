@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: gather os specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - import_tasks: install.yml
 
 - import_tasks: configure.yml

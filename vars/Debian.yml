@@ -1,4 +1,4 @@
-# Copyright 2016 Daniel Wilhelm
+# Copyright 2019 Daniel Wilhelm
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-systemd_unit_path: /etc/systemd/system
+docker_package: docker.io
 
-docker_service_name: docker
+docker_compose_installmode: urlcopy
+docker_compose_url: "https://github.com/docker/compose/releases/download/\
+  {{ docker_compose_version }}/docker-compose-Linux-x86_64"
+docker_compose_bin_path: /usr/local/bin/docker-compose

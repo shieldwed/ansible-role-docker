@@ -15,10 +15,14 @@
 - name: install docker
   package: name={{ docker_package }} state=present
 
-- name: install docker-compose
+- name: install docker-compose binary
   get_url: dest={{ docker_compose_bin_path }} url={{ docker_compose_url }}
     checksum={{ docker_compose_checksum }} owner=root group=root mode=0755
-  when: docker_compose_state == "present"
+  when: docker_compose_state == "present" and docker_compose_installmode == "urlcopy"
+
+- name: install docker-compose package
+  package: name={{ docker_compose_package }} state=present
+  when: docker_compose_state == "present" and docker_compose_installmode == "package"
 
 - name: ensure service enabling
   service: name={{ docker_service_name }} state={{ docker_service_state }}

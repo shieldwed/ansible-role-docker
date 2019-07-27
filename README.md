@@ -16,7 +16,7 @@ Compatibility
 
 This role has been working for all releases from `xenial` up to `disco` so far
 and has been used on each of them, although compatibility is only really tested
-with the latest release.
+with the latest release. Additionally support for Archlinux is now added too.
 
 Role Variables
 --------------
