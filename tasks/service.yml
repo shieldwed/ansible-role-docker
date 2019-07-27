@@ -21,7 +21,7 @@
     docker_compose_file_initial: true
   template: src={{ docker_service.compose_file }}
     dest={{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml
-    validate='{{ docker_compose_bin_path }} -f %s config -q' force=no
+    validate='docker-compose -f %s config -q' force=no
 
 - name: place systemd unit for {{ docker_service.name }} on server
   template: src=docker-service.service.j2
@@ -40,4 +40,4 @@
     docker_compose_file_initial: false
   template: src={{ docker_service.compose_file }}
     dest={{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml
-    validate='{{ docker_compose_bin_path }} -f %s config -q'
+    validate='docker-compose -f %s config -q'
