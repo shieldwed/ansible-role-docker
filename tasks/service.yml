@@ -26,6 +26,8 @@
 - name: place systemd unit for {{ docker_service.name }} on server
   template: src=docker-service.service.j2
     dest={{ systemd_unit_path }}/{{ docker_service.systemd_service_name|default('docker-' + docker_service.name) }}.service
+  notify:
+    - reload systemd
 
 - name: include service specific config
   include_tasks: "{{ docker_service.service_config }}"
