@@ -11,3 +11,4 @@ WantedBy=multi-user.target
 Restart=always
 ExecStart=docker-compose -p {{ docker_service.name }} -f {{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml up
 ExecStop=docker-compose -p {{ docker_service.name }} -f {{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml down --remove-orphans
+ExecReload=docker-compose -p {{ docker_service.name }} -f {{ docker_service_directory }}/{{ docker_service.name }}/docker-compose.yml up --remove-orphans --detach
