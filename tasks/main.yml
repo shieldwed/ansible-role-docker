@@ -13,7 +13,7 @@
 # limitations under the License.
 ---
 - name: gather os specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_facts['os_family'] }}.yml"
 
 - import_tasks: install.yml
 
