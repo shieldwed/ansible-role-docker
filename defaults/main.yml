@@ -13,9 +13,9 @@
 # limitations under the License.
 ---
 docker_compose_state: present
-docker_compose_version: v2.40.3
+docker_compose_version: v5.1.4
 docker_compose_checksum: >
-  sha256:dba9d98e1ba5bfe11d88c99b9bd32fc4a0624a30fafe68eea34d61a3e42fd372
+  sha256:33b208d7e76639db742fae84b966cc01dacae58ca3fc4dabbc907045aefdf0c4
 
 docker_service_enabled: yes
 docker_service_state: started
